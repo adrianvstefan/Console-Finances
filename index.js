@@ -86,3 +86,52 @@ var finances = [
   ['Jan-2017', 138230],
   ['Feb-2017', 671099],
 ];
+
+// Declaring the variables
+
+var totalNumberOfMonths = finances.length,
+    netProfitLoss = 0,
+    avarageChange = "",
+    totalAvgChange = 0,
+    previousMonth = 0,
+    greatestIncDate = '',
+    greatestIncValue = 0,
+    greatestDecDate = '',
+    greatestDecValue = 0
+
+ // looping through each element in the array
+
+for (let i = 0; i < finances.length; i++) {
+  const profitLoss = finances[i][1];
+  netProfitLoss += profitLoss                                                                                 // Finding the amount of Profit/Losses
+
+  avarageChange = profitLoss - previousMonth                                                                  // Finding the avarage of the changes in Profit/Losses
+  totalAvgChange += avarageChange
+  previousMonth = profitLoss
+  
+  if (i>0) {
+    var totalChange = finances[i][1] - finances[i - 1][1]                                                     // Finding the greatest increase in Profit/Losses
+    if (totalChange > greatestIncValue) {
+      greatestIncValue = totalChange
+      greatestIncDate = finances[i][0]
+    }
+  }
+
+  if (i>0) {
+    var totalChange = finances[i][1] - finances[i - 1][1]                                                    // Finding the greatest decrease in Profit/Losses
+    if (totalChange < greatestDecValue) {
+      greatestDecValue = totalChange
+      greatestDecDate = finances[i][0]
+    }
+  }
+}
+
+// Returning results
+
+console.log('Financial Analysis')
+console.log('-----------------')
+console.log("Total Months: " + totalNumberOfMonths)                                                           // Total number of the months in the array
+console.log("Total: $" + netProfitLoss);                                                                      // Total amount of Profit/Losses
+console.log('Average Change: ' + ((totalAvgChange - finances[0][1]) / (totalNumberOfMonths - 1)).toFixed(2)); // Avarage of changes in  Profit/Losses
+console.log('Greatest Increase in Profits/Losses: ' + greatestIncDate + ' ($' + greatestIncValue + ')')       // The greatest increase in Profit/Losses
+console.log('Greatest Decrease in Profits/Losses: ' + greatestDecDate + ' ($' + greatestDecValue + ')')       // The greatest decrease in Profit/Losses
